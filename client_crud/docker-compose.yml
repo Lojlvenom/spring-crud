@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  database:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_ROOT_PASSWORD=
+    volumes:
+      - ./mysql_init:/docker-entrypoint-initdb.d
+      - ./mysql_init/custom.cnf:/etc/mysql/conf.d/custom.cnf
+
+  dbadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8888:80"
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - database
