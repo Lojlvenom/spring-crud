@@ -1,16 +1,18 @@
 package com.api.client_crud.domain.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +21,7 @@ import lombok.Data;
 @Table(name = "client")
 @Data
 @AllArgsConstructor
-public class Client {
+public class Client {    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -31,7 +33,7 @@ public class Client {
 
     @Column(name = "cpf")
     @NotBlank(message = "CPF é obrigatório")
-    @Length(message = "CPF invalido", max = 12)
+    @CPF(message = "cpf invalido")
     String cpf;
 
     @Column(name = "sexo")

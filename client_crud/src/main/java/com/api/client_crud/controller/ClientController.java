@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.api.client_crud.domain.dto.ClientDto;
+import com.api.client_crud.domain.dto.ResponseDto;
 import com.api.client_crud.domain.entity.Client;
 import com.api.client_crud.domain.service.ClientService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,40 +18,40 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/client")
 public class ClientController {
-    ClientService clientService;
+    @Autowired
+    private ClientService clientService;
 
-    @PostMapping
-    public ResponseEntity<Client> insertClient(@Valid @RequestBody Client client) {
-        this.clientService.saveClient(client);
-        return new ResponseEntity<Client>(this.clientService.getClientById(client.getId()), HttpStatus.CREATED);
+
+    @PostMapping //http://localhost:8080/client/
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDto saveUser(@Valid @RequestBody Client client) {
+      return clientService.saveClient(client);
+    }
+  
+    @GetMapping(value = "/list") // http://localhost:8080/client/list
+    public List<ClientDto> getAllUser() {
+      return clientService.getAllClients();
+    }
+  
+    @GetMapping(value = "/{id}")
+    public ClientDto getUserById(@Valid @PathVariable Long id) {
+      return clientService.getClientById(id);
+    }
+  
+    @PutMapping
+    public ResponseDto updateUser(@Valid @RequestBody Client client) {
+      return clientService.updateClient(client);
+    }
+  
+    @DeleteMapping(value = "/{id}")
+    public ResponseDto deleteUser(@Valid @PathVariable Long id) {
+      return clientService.deleteClient(id);
     }
 
-    @GetMapping({ "/{id}" })
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
-        return new ResponseEntity<Client>(this.clientService.getClientById(id), HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Client>> getAllClients() {
-        List<Client> allClients = this.clientService.getAllClients();
-        return new ResponseEntity<>(allClients, HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
-        this.clientService.updatClient(id, client);
-        return new ResponseEntity<Client>(this.clientService.getClientById(id), HttpStatus.OK);
-
-    }
-
-    @DeleteMapping
-    public ResponseEntity<Client> deleteClient(@PathVariable Long id) {
-        this.clientService.deleteClient(id);
-        return new ResponseEntity<Client>(HttpStatus.ACCEPTED);
-    }
 }
