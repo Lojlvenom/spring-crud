@@ -16,5 +16,5 @@ public class ClientDto {
     String nome;
     String cpf;
     String sexo;
-    Date dataNascimento;
+    Date nascimento;
 }

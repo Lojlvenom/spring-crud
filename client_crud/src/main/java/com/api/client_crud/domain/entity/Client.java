@@ -1,5 +1,8 @@
 package com.api.client_crud.domain.entity;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,20 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import java.util.Date;
-
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "client")
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class Client {    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Client {
 
     @Column(name = "cpf")
     @NotBlank(message = "CPF é obrigatório")
-    @CPF(message = "cpf invalido")
+    // @CPF(message = "cpf invalido")
     String cpf;
 
     @Column(name = "sexo")
@@ -41,7 +41,7 @@ public class Client {
     @Length(message = "Insira apenas o caracter inicial", max = 2)
     String sexo;
 
-    @Column(name = "dataNascimento")
-    @NotBlank(message = "Data de nascimento é obrigatória")
-    Date dataNascimento;
+    @Column(name = "nascimento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "EST")
+    Date nascimento;
 }

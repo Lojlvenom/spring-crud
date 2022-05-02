@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class ClientService {
     @Autowired
     private ModelMapper modelMapper;
@@ -26,6 +25,7 @@ public class ClientService {
     @Autowired
     private ResponseDto responseDto;
 
+    
     ClientRepository clientRepository;
 
     public ResponseDto saveClient(Client client) {
@@ -48,6 +48,7 @@ public class ClientService {
 
     public ClientDto getClientById(Long id) {
         return modelMapper.map(clientRepository.findById(id).get(), ClientDto.class);
+        
     }
 
     public ResponseDto updateClient(Client client) {
