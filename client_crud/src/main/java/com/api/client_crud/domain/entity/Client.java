@@ -2,20 +2,25 @@ package com.api.client_crud.domain.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Table(name = "client")
@@ -33,7 +38,6 @@ public class Client {
 
     @Column(name = "cpf")
     @NotBlank(message = "CPF é obrigatório")
-    // @CPF(message = "cpf invalido")
     String cpf;
 
     @Column(name = "sexo")
@@ -44,4 +48,9 @@ public class Client {
     @Column(name = "nascimento")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "EST")
     Date nascimento;
+    
+    
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id") 
+    Endereco endereco;
 }
