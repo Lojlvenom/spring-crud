@@ -50,7 +50,7 @@ public class Client {
     Date nascimento;
     
     
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id") 
     Endereco endereco;
 }
