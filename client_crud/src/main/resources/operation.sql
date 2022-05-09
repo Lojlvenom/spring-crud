@@ -1,0 +1,22 @@
+-- create table endereco(
+--     id int AUTO_INCREMENT,
+--     cep VARCHAR(8) not NULL,
+--     rua VARCHAR(50) not NULL,
+--     bairro VARCHAR(50) not NULL,
+--     numero int not NULL,
+--     cidade VARCHAR(50) not NULL,
+--     uf VARCHAR(2) not NULL,
+--     PRIMARY KEY (id)
+
+-- );
+
+-- create table client(
+--     id int AUTO_INCREMENT,
+--     cpf VARCHAR(11) not NULL,
+--     nome VARCHAR(50) not NULL,
+--     sexo VARCHAR(2) not NULL,
+--     nascimento date not NULL,
+--     endereco_id int not NULL,
+--     PRIMARY KEY (id),
+--     FOREIGN KEY (endereco_id) REFERENCES endereco(id)
+-- );
