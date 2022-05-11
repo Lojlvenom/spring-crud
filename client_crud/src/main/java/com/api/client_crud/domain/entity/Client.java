@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+
 
 @Entity
 @Table(name = "client")
